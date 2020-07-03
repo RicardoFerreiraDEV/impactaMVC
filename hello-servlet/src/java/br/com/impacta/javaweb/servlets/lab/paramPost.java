@@ -6,9 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet(name="ParamServlet", urlPatterns={"/param-servlet"})
-public class NewServlet extends HttpServlet {
- 
+@WebServlet(name="paramPost", urlPatterns={"/parampost"})
+public class paramPost extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -17,20 +16,24 @@ public class NewServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");  
+            out.println("<title>Servlet paramPost</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet paramPost at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     } 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
         String nome = request.getParameter("nome");
-        String idade = request.getParameter("idade");
-        
+        String idade = request.getParameter("idade");      
         response.getWriter().append("<html><h1>Nome : " + nome + "<br></html>")
-                            .append("Idade : " + idade);
+                            .append("Idade : " + idade);      
     } 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
 }
